@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-1",
+      "description": "A diverse group of students learning together in a bright, modern classroom.",
+      "imageUrl": "https://images.unsplash.com/photo-1565598621680-94ac0c22b148?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc1ODg1MTEyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "students learning"
+    },
+    {
+      "id": "avatar-1",
+      "description": "A profile picture of a smiling user.",
+      "imageUrl": "https://images.unsplash.com/photo-1607529378676-a20456ee2f6b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxwZXJzb24lMjBzbWlsaW5nfGVufDB8fHx8MTc1ODkwMDczMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person smiling"
+    },
+    {
+      "id": "dashboard-card-1",
+      "description": "An illustration of an AI robot assistant.",
+      "imageUrl": "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBSSUyMGFzc2lzdGFudHxlbnwwfHx8fDE3NTg5MTAxNjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "AI assistant"
+    },
+    {
+      "id": "dashboard-card-2",
+      "description": "An abstract representation of sign language.",
+      "imageUrl": "https://images.unsplash.com/photo-1737567425973-bf7b6369d08a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzaWduJTIwbGFuZ3VhZ2V8ZW58MHx8fHwxNzU4ODMwNDUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sign language"
+    },
+    {
+      "id": "dashboard-card-3",
+      "description": "An icon representing gesture controls.",
+      "imageUrl": "https://images.unsplash.com/photo-1710993011836-108ba89ebe51?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxnZXN0dXJlJTIwY29udHJvbHxlbnwwfHx8fDE3NTg5MTAxNjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gesture control"
+    },
+    {
+      "id": "dashboard-card-4",
+      "description": "A collection of quiz questions on a screen.",
+      "imageUrl": "https://images.unsplash.com/photo-1567254790685-6b6d6abe4689?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxxdWl6JTIwcXVlc3Rpb25zfGVufDB8fHx8MTc1ODkxMDE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "quiz questions"
+    },
+    {
+      "id": "dashboard-card-5",
+      "description": "A book being summarized into key points.",
+      "imageUrl": "https://images.unsplash.com/photo-1715703344849-bc89c1af2856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "book summary"
+    },
+    {
+      "id": "dashboard-card-6",
+      "description": "A user profile page with settings.",
+      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx1c2VyJTIwcHJvZmlsZXxlbnwwfHx8fDE3NTg4Mjg5MDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "user profile"
+    }
+  ]
 }
