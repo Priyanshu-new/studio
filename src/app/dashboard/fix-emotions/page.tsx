@@ -1,3 +1,4 @@
+
 'use client';
 
 import { recognizeFacialExpressionGesture } from '@/ai/flows/facial-expression-gesture-recognition';
@@ -17,7 +18,7 @@ import { YouTubePlayer } from '@/components/app/youtube-player';
 
 type Emotion = 'happy' | 'stress' | 'fear' | 'stop' | null;
 
-export default function GestureControlPage() {
+export default function FixEmotionsPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [emotion, setEmotion] = useState<Emotion>(null);
@@ -62,14 +63,17 @@ export default function GestureControlPage() {
   }, [stream]);
 
   const detectGesture = useCallback(async () => {
-    if (!videoRef.current || !stream || videoRef.current.videoWidth === 0) return;
+    if (!videoRef.current || !stream || videoRef.current.videoWidth === 0 || isDetecting) return;
     
     setIsDetecting(true);
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    if (!ctx) {
+        setIsDetecting(false);
+        return;
+    }
     
     ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
     const cameraDataUri = canvas.toDataURL('image/jpeg');
@@ -96,21 +100,19 @@ export default function GestureControlPage() {
     } finally {
         setIsDetecting(false);
     }
-  }, [stream, toast]);
+  }, [stream, toast, isDetecting]);
 
   useEffect(() => {
     if (stream) {
       const intervalId = setInterval(() => {
-        if (!isDetecting) {
           detectGesture();
-        }
-      }, 5000); // Check every 5 seconds
+      }, 5000); 
 
       return () => {
         clearInterval(intervalId);
       };
     }
-  }, [stream, isDetecting, detectGesture]);
+  }, [stream, detectGesture]);
 
   useEffect(() => {
     return () => {
