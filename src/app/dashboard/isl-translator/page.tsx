@@ -17,7 +17,7 @@ export default function ISLTranslatorPage() {
   const startCamera = async () => {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: 'user' },
+        video: true,
       });
       setStream(mediaStream);
       if (videoRef.current) {
@@ -53,6 +53,9 @@ export default function ISLTranslatorPage() {
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     const ctx = canvas.getContext('2d');
+    // Flip the canvas context horizontally
+    ctx?.translate(canvas.width, 0);
+    ctx?.scale(-1, 1);
     ctx?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
 
     const photoDataUri = canvas.toDataURL('image/jpeg');
@@ -103,7 +106,7 @@ export default function ISLTranslatorPage() {
                 autoPlay
                 playsInline
                 muted
-                className="h-full w-full object-cover"
+                className="h-full w-full scale-x-[-1] object-cover"
               />
               {!stream && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
