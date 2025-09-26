@@ -13,8 +13,7 @@ import {
   Smile,
 } from 'lucide-react';
 import { useRef, useState, useEffect, useCallback } from 'react';
-import YouTube from 'react-youtube';
-import type { YouTubePlayer } from 'react-youtube';
+import { YouTubePlayer } from '@/components/app/youtube-player';
 
 type Emotion = 'happy' | 'stress' | 'fear' | 'stop' | null;
 
@@ -112,10 +111,6 @@ export default function GestureControlPage() {
     };
   }, [stopCamera]);
   
-  const onPlayerReady = (event: { target: YouTubePlayer }) => {
-    event.target.playVideo();
-  };
-
   const renderPlayerContent = () => {
     switch (emotion) {
       case 'happy':
@@ -129,22 +124,16 @@ export default function GestureControlPage() {
         );
       case 'stress':
         return (
-          <YouTube
+          <YouTubePlayer
             key={videoIds.stress}
             videoId={videoIds.stress}
-            opts={{ height: '100%', width: '100%', playerVars: { autoplay: 1 } }}
-            className="h-full w-full"
-            onReady={onPlayerReady}
           />
         );
       case 'fear':
         return (
-          <YouTube
+          <YouTubePlayer
             key={videoIds.fear}
             videoId={videoIds.fear}
-            opts={{ height: '100%', width: '100%', playerVars: { autoplay: 1 } }}
-            className="h-full w-full"
-            onReady={onPlayerReady}
           />
         );
       default:
