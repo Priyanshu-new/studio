@@ -10,10 +10,7 @@ import {
   Loader2,
   Music,
   Power,
-  Play,
   Smile,
-  Frown,
-  Meh,
 } from 'lucide-react';
 import { useRef, useState, useEffect, useCallback } from 'react';
 import YouTube from 'react-youtube';
@@ -133,6 +130,7 @@ export default function GestureControlPage() {
       case 'stress':
         return (
           <YouTube
+            key={videoIds.stress}
             videoId={videoIds.stress}
             opts={{ height: '100%', width: '100%', playerVars: { autoplay: 1 } }}
             className="h-full w-full"
@@ -142,6 +140,7 @@ export default function GestureControlPage() {
       case 'fear':
         return (
           <YouTube
+            key={videoIds.fear}
             videoId={videoIds.fear}
             opts={{ height: '100%', width: '100%', playerVars: { autoplay: 1 } }}
             className="h-full w-full"
