@@ -64,6 +64,11 @@ export default function FixEmotionsPage() {
 
   const detectEmotion = useCallback(async () => {
     if (!videoRef.current || !stream || isDetecting || videoRef.current.videoWidth === 0) {
+      toast({
+        title: 'Camera Not Ready',
+        description: 'Please wait for the camera feed to start before detecting.',
+        variant: 'destructive',
+      });
       return;
     }
     
