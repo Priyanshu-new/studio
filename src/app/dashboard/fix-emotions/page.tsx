@@ -130,6 +130,7 @@ export default function FixEmotionsPage() {
   }, [toast]);
   
   useEffect(() => {
+    // This effect handles cleanup when the component is unmounted.
     return () => {
       stopCamera();
     };
@@ -275,5 +276,3 @@ export default function FixEmotionsPage() {
     </div>
   );
 }
-
-    
