@@ -106,6 +106,7 @@ export default function FixEmotionsPage() {
   }, [stream, toast, isDetecting]);
 
   useEffect(() => {
+    // Cleanup function to stop the camera when the component unmounts
     return () => {
       stopCamera();
     };
