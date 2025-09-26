@@ -62,14 +62,22 @@ export default function GestureControlPage() {
   }, [stream]);
 
   const detectGesture = useCallback(async () => {
-    if (!videoRef.current) return;
+    if (!videoRef.current || !stream || isDetecting || videoRef.current.videoWidth === 0) {
+      return;
+    }
+    
     setIsDetecting(true);
 
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     const ctx = canvas.getContext('2d');
-    ctx?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+    if (!ctx) {
+        setIsDetecting(false);
+        return;
+    }
+    
+    ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
     const cameraDataUri = canvas.toDataURL('image/jpeg');
 
     try {
@@ -92,11 +100,12 @@ export default function GestureControlPage() {
         variant: 'destructive',
       });
     } finally {
-      setIsDetecting(false);
+        setIsDetecting(false);
     }
-  }, [toast]);
+  }, [stream, toast, isDetecting]);
 
   useEffect(() => {
+    // Cleanup function to stop the camera when the component unmounts
     return () => {
       stopCamera();
     };
