@@ -14,12 +14,13 @@ import {
   CheckCircle2,
   ChevronLeft,
   ChevronRight,
+  History,
   Lightbulb,
   Loader2,
   XCircle,
   RefreshCw,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 type Question = {
   question: string;
@@ -30,6 +31,14 @@ type Question = {
 
 type Quiz = {
   questions: Question[];
+  topic: string;
+};
+
+type QuizResult = {
+  quiz: Quiz;
+  userAnswers: string[];
+  score: number;
+  date: string;
 };
 
 export default function QuizGeneratorPage() {
@@ -41,6 +50,39 @@ export default function QuizGeneratorPage() {
   const [userAnswers, setUserAnswers] = useState<string[]>([]);
   const [showResults, setShowResults] = useState(false);
   const { toast } = useToast();
+  const [quizHistory, setQuizHistory] = useState<QuizResult[]>([]);
+  const [viewingHistory, setViewingHistory] = useState<QuizResult | null>(null);
+
+  useEffect(() => {
+    const storedHistory = localStorage.getItem('quizHistory');
+    if (storedHistory) {
+      setQuizHistory(JSON.parse(storedHistory));
+    }
+  }, []);
+
+  const saveQuizToHistory = (result: QuizResult) => {
+    const newHistory = [result, ...quizHistory].slice(0, 10); // Keep last 10 quizzes
+    setQuizHistory(newHistory);
+    localStorage.setItem('quizHistory', JSON.stringify(newHistory));
+  };
+  
+  useEffect(() => {
+    if (quiz && showResults) {
+      const score = quiz.questions.reduce((total, question, index) => {
+        return total + (question.answer === userAnswers[index] ? 1 : 0);
+      }, 0);
+
+      const result: QuizResult = {
+        quiz,
+        userAnswers,
+        score,
+        date: new Date().toISOString(),
+      };
+      saveQuizToHistory(result);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [showResults, quiz]);
+
 
   const handleGenerateQuiz = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,11 +93,12 @@ export default function QuizGeneratorPage() {
     setCurrentQuestionIndex(0);
     setUserAnswers([]);
     setShowResults(false);
+    setViewingHistory(null);
 
     try {
       const result = await generateQuizzesFromTopic({ topic, numQuestions });
       const parsedQuiz = JSON.parse(result.quiz);
-      setQuiz(parsedQuiz);
+      setQuiz({ ...parsedQuiz, topic });
     } catch (error) {
       console.error('Quiz generation error:', error);
       toast({
@@ -73,6 +116,19 @@ export default function QuizGeneratorPage() {
     const newAnswers = [...userAnswers];
     newAnswers[currentQuestionIndex] = answer;
     setUserAnswers(newAnswers);
+  };
+  
+  const handleReviewHistory = (result: QuizResult) => {
+    setViewingHistory(result);
+  }
+
+  const resetState = () => {
+    setTopic('');
+    setQuiz(null);
+    setCurrentQuestionIndex(0);
+    setUserAnswers([]);
+    setShowResults(false);
+    setViewingHistory(null);
   };
 
   const score =
@@ -92,6 +148,59 @@ export default function QuizGeneratorPage() {
     );
   }
 
+  if (viewingHistory) {
+    return (
+       <div className="space-y-6">
+        <Button onClick={() => setViewingHistory(null)} variant="outline">
+          <ChevronLeft className="mr-2 h-4 w-4" /> Back to Quiz Home
+        </Button>
+        <h1 className="font-headline text-3xl">Review: {viewingHistory.quiz.topic}</h1>
+        <Card>
+          <CardHeader>
+            <CardTitle>
+              Your Score: {viewingHistory.score} / {viewingHistory.quiz.questions.length}
+            </CardTitle>
+             <CardDescription>
+              Taken on: {new Date(viewingHistory.date).toLocaleString()}
+            </CardDescription>
+          </CardHeader>
+        </Card>
+        {viewingHistory.quiz.questions.map((q, index) => (
+          <Card
+            key={index}
+            className={
+              viewingHistory.userAnswers[index] === q.answer
+                ? 'border-green-500'
+                : 'border-red-500'
+            }
+          >
+            <CardHeader>
+              <CardTitle className="flex items-start gap-3">
+                {viewingHistory.userAnswers[index] === q.answer ? (
+                  <CheckCircle2 className="mt-1 h-5 w-5 flex-shrink-0 text-green-500" />
+                ) : (
+                  <XCircle className="mt-1 h-5 w-5 flex-shrink-0 text-red-500" />
+                )}
+                {q.question}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>
+                <strong>Your answer:</strong> {viewingHistory.userAnswers[index]}
+              </p>
+              <p>
+                <strong>Correct answer:</strong> {q.answer}
+              </p>
+              <p className="mt-2 rounded-md bg-muted p-2">
+                <strong>Explanation:</strong> {q.explanation}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
+    )
+  }
+
   if (quiz && showResults) {
     return (
       <div className="space-y-6">
@@ -102,7 +211,7 @@ export default function QuizGeneratorPage() {
               Your Score: {score} / {quiz.questions.length}
             </CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className="flex gap-4">
             <Button
               onClick={() => {
                 setShowResults(false);
@@ -112,6 +221,7 @@ export default function QuizGeneratorPage() {
               <RefreshCw className="mr-2 h-4 w-4" />
               Review Answers
             </Button>
+             <Button onClick={resetState} variant="outline">Create a New Quiz</Button>
           </CardContent>
         </Card>
         {quiz.questions.map((q, index) => (
@@ -146,7 +256,6 @@ export default function QuizGeneratorPage() {
             </CardContent>
           </Card>
         ))}
-        <Button onClick={() => setQuiz(null)}>Create a New Quiz</Button>
       </div>
     );
   }
@@ -155,7 +264,7 @@ export default function QuizGeneratorPage() {
     const question = quiz.questions[currentQuestionIndex];
     return (
       <div className="space-y-6">
-        <h1 className="font-headline text-3xl">Quiz on {topic}</h1>
+        <h1 className="font-headline text-3xl">Quiz on {quiz.topic}</h1>
         <Card>
           <CardHeader>
             <CardTitle>
@@ -255,6 +364,29 @@ export default function QuizGeneratorPage() {
           </CardFooter>
         </form>
       </Card>
+       {quizHistory.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <History className="h-5 w-5" />
+              Quiz History
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-2">
+            {quizHistory.map((result, index) => (
+              <div key={index} className="flex items-center justify-between rounded-md border p-3">
+                <div>
+                  <p className="font-semibold">{result.quiz.topic}</p>
+                  <p className="text-sm text-muted-foreground">
+                    Score: {result.score}/{result.quiz.questions.length} - {new Date(result.date).toLocaleDateString()}
+                  </p>
+                </div>
+                <Button variant="ghost" size="sm" onClick={() => handleReviewHistory(result)}>Review</Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
     </div>
   );
 }
