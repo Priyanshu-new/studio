@@ -17,7 +17,8 @@ export default function AssistantPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: 'Hello! How can I assist your learning today?',
+      content:
+        'Hay dude whats you wana learn now ? just name it and I will make the process super easy only for you  ',
     },
   ]);
   const [input, setInput] = useState('');
