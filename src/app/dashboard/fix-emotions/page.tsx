@@ -160,7 +160,7 @@ export default function GestureControlPage() {
           Fix Emotions
         </h1>
         <p className="text-muted-foreground">
-          if u are stressed then fix that first and then u are capable for studing other wise u cant clear that stuff
+          It's hard to study when you're stressed. Take a moment to reset and you'll be better prepared to learn.
         </p>
       </div>
 
