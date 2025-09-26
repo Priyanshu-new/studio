@@ -1,6 +1,7 @@
 'use client';
 
 import { recognizeFacialExpressionGesture } from '@/ai/flows/facial-expression-gesture-recognition';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
@@ -19,7 +20,7 @@ type Emotion = 'happy' | 'stress' | 'fear' | 'stop' | null;
 
 export default function GestureControlPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [stream, setStream] = useState<MediaStream | null>(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [emotion, setEmotion] = useState<Emotion>(null);
   const [isDetecting, setIsDetecting] = useState<boolean>(false);
   const { toast } = useToast();
@@ -29,43 +30,52 @@ export default function GestureControlPage() {
     fear: 'nkkpE6xdcnU',
   };
 
-  const startCamera = async () => {
+  const getCameraPermission = useCallback(async () => {
     try {
-      const mediaStream = await navigator.mediaDevices.getUserMedia({
-        video: true,
-      });
-      setStream(mediaStream);
-      if (videoRef.current) {
-        videoRef.current.srcObject = mediaStream;
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+        setHasCameraPermission(true);
+        return stream;
       }
-    } catch (err) {
-      console.error('Error accessing camera:', err);
+      throw new Error('Media devices not supported');
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+      setHasCameraPermission(false);
       toast({
-        title: 'Camera Error',
-        description:
-          'Could not access the camera. Please check permissions.',
         variant: 'destructive',
+        title: 'Camera Access Denied',
+        description: 'Please enable camera permissions in your browser settings.',
       });
+      return null;
+    }
+  }, [toast]);
+
+  const startCamera = async () => {
+    const stream = await getCameraPermission();
+    if (stream && videoRef.current) {
+      videoRef.current.srcObject = stream;
     }
   };
 
   const stopCamera = useCallback(() => {
-    if (stream) {
+    if (videoRef.current && videoRef.current.srcObject) {
+      const stream = videoRef.current.srcObject as MediaStream;
       stream.getTracks().forEach((track) => track.stop());
-      setStream(null);
-      if (videoRef.current) {
-        videoRef.current.srcObject = null;
-      }
+      videoRef.current.srcObject = null;
     }
+    setHasCameraPermission(null);
     setIsDetecting(false);
     setEmotion(null);
-  }, [stream]);
+  }, []);
 
   const detectGesture = useCallback(async () => {
-    if (!videoRef.current || !stream || isDetecting || videoRef.current.videoWidth === 0) {
+    if (!videoRef.current || !videoRef.current.srcObject || videoRef.current.videoWidth === 0) {
       toast({
         title: 'Camera Not Ready',
-        description: 'Please wait for the camera feed to start before detecting.',
+        description: 'Please start the camera and wait for the feed to appear.',
         variant: 'destructive',
       });
       return;
@@ -107,13 +117,17 @@ export default function GestureControlPage() {
     } finally {
         setIsDetecting(false);
     }
-  }, [stream, toast, isDetecting]);
+  }, [toast]);
 
   useEffect(() => {
     return () => {
-      stopCamera();
+      // Ensure camera is off when leaving the page.
+      if (videoRef.current && videoRef.current.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach((track) => track.stop());
+      }
     };
-  }, [stopCamera]);
+  }, []);
   
   const renderPlayerContent = () => {
     switch (emotion) {
@@ -183,16 +197,24 @@ export default function GestureControlPage() {
                 muted
                 className="h-full w-full scale-x-[-1] object-cover"
               />
-              {!stream && (
+              {hasCameraPermission === null && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                   <p className="text-sm text-muted-foreground">Camera off</p>
                   <Button onClick={startCamera}>Start Camera</Button>
                 </div>
               )}
             </div>
-            {stream && (
+             {hasCameraPermission === false && (
+                <Alert variant="destructive" className="mt-4">
+                  <AlertTitle>Camera Access Required</AlertTitle>
+                  <AlertDescription>
+                    Please allow camera access in your browser settings to use this feature.
+                  </AlertDescription>
+                </Alert>
+             )}
+            {hasCameraPermission === true && (
               <div className="mt-4 flex justify-between">
-                <Button onClick={detectGesture} disabled={!stream || isDetecting}>
+                <Button onClick={detectGesture} disabled={isDetecting}>
                   {isDetecting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
