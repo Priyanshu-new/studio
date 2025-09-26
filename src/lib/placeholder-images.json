@@ -39,7 +39,7 @@
     {
       "id": "dashboard-card-5",
       "description": "A book being summarized into key points.",
-      "imageUrl": "https://images.unsplash.com/photo-1715703344849-bc89c1af2856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlibrb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1715703344849-bc89c1af2856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "book summary"
     },
     {
