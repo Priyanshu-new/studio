@@ -62,8 +62,11 @@ export default function FixEmotionsPage() {
     setEmotion(null);
   }, [stream]);
 
-  const detectGesture = useCallback(async () => {
-    if (!videoRef.current || !stream) return;
+  const detectEmotion = useCallback(async () => {
+    if (!videoRef.current || !stream || isDetecting || videoRef.current.videoWidth === 0) {
+      return;
+    }
+    
     setIsDetecting(true);
 
     const canvas = document.createElement('canvas');
@@ -90,7 +93,7 @@ export default function FixEmotionsPage() {
         }
       }
     } catch (error) {
-      console.error('Gesture detection error:', error);
+      console.error('Emotion detection error:', error);
        toast({
         title: 'Detection Error',
         description:
@@ -100,7 +103,7 @@ export default function FixEmotionsPage() {
     } finally {
         setIsDetecting(false);
     }
-  }, [stream, toast]);
+  }, [stream, toast, isDetecting]);
 
   useEffect(() => {
     return () => {
@@ -184,7 +187,7 @@ export default function FixEmotionsPage() {
             </div>
             {stream && (
                <div className="mt-4 flex justify-between">
-                <Button onClick={detectGesture} disabled={!stream || isDetecting}>
+                <Button onClick={detectEmotion} disabled={!stream || isDetecting}>
                   {isDetecting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
