@@ -108,7 +108,6 @@ export default function FixEmotionsPage() {
           setEmotion(detectedAction);
         }
       } else {
-        // Handle cases where the AI returns an unexpected action
         setEmotion(null);
         toast({
           title: 'Detection Result',
@@ -129,7 +128,6 @@ export default function FixEmotionsPage() {
   }, [toast]);
   
   useEffect(() => {
-    // This effect is now only for cleanup
     return () => {
       stopCamera();
     };
