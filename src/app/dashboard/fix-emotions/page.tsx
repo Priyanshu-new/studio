@@ -62,14 +62,15 @@ export default function GestureControlPage() {
   }, [stream]);
 
   const detectGesture = useCallback(async () => {
-    if (!videoRef.current) return;
-    setIsDetecting(true);
+    if (!videoRef.current || !stream) return;
 
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     const ctx = canvas.getContext('2d');
-    ctx?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+    if (!ctx) return;
+    
+    ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
     const cameraDataUri = canvas.toDataURL('image/jpeg');
 
     try {
@@ -91,17 +92,22 @@ export default function GestureControlPage() {
           'Could not detect emotion. Please try again.',
         variant: 'destructive',
       });
-    } finally {
-      setIsDetecting(false);
     }
-  }, [toast]);
-
+  }, [stream, toast]);
 
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (stream && !isDetecting) {
+        setIsDetecting(true);
+        detectGesture().finally(() => setIsDetecting(false));
+      }
+    }, 5000); // Check every 5 seconds
+
     return () => {
+      clearInterval(intervalId);
       stopCamera();
     };
-  }, [stopCamera]);
+  }, [stream, isDetecting, detectGesture, stopCamera]);
   
   const renderPlayerContent = () => {
     switch (emotion) {
@@ -133,10 +139,12 @@ export default function GestureControlPage() {
           <div className="text-center">
             <Music className="mx-auto h-12 w-12 text-muted-foreground" />
             <p className="mt-4 text-xl font-bold text-muted-foreground">
-              Emotion not detected
+              {isDetecting ? 'Detecting...' : 'Emotion not detected'}
             </p>
             <p className="text-sm text-muted-foreground">
-              Click the detect button to check your emotion.
+             {isDetecting
+                ? 'The AI is analyzing your expression...'
+                : 'Enable your camera to start emotion detection.'}
             </p>
           </div>
         );
@@ -178,20 +186,7 @@ export default function GestureControlPage() {
               )}
             </div>
             {stream && (
-              <div className="mt-4 flex justify-between">
-                <Button onClick={detectGesture} disabled={!stream || isDetecting}>
-                  {isDetecting ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Detecting...
-                    </>
-                  ) : (
-                    <>
-                      <Feather className="mr-2 h-4 w-4" />
-                      Detect Emotion
-                    </>
-                  )}
-                </Button>
+              <div className="mt-4 flex justify-end">
                 <Button variant="outline" onClick={stopCamera}>
                   <Power className="mr-2 h-4 w-4" />
                   Stop Camera
