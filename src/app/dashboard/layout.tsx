@@ -10,6 +10,7 @@ import { Logo } from '@/components/app/logo';
 import { SidebarNav } from '@/components/app/sidebar-nav';
 import { Header } from '@/components/app/header';
 import { Separator } from '@/components/ui/separator';
+import { ThemeToggle } from '@/components/app/theme-toggle';
 
 export default function DashboardLayout({
   children,
@@ -27,9 +28,9 @@ export default function DashboardLayout({
         </SidebarContent>
         <SidebarFooter>
           <Separator className="mb-2" />
-          <p className="p-2 text-xs text-muted-foreground group-data-[collapsible=icon]:hidden">
-            &copy; {new Date().getFullYear()} Abily Learn
-          </p>
+          <div className="flex items-center justify-center p-2 group-data-[collapsible=icon]:hidden">
+            <ThemeToggle />
+          </div>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
