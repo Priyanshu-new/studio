@@ -15,13 +15,13 @@
     {
       "id": "dashboard-card-1",
       "description": "An illustration of an AI robot assistant.",
-      "imageUrl": "https://images.unsplash.com/photo-1555992336-03a23c03604a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxBSSUyMHJvYm90fGVufDB8fHx8MTc1ODkxODc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://static.vecteezy.com/system/resources/thumbnails/026/309/247/small_2x/robot-chat-or-chat-bot-logo-modern-conversation-automatic-technology-logo-design-template-vector.jpg",
       "imageHint": "AI robot"
     },
     {
       "id": "dashboard-card-2",
       "description": "An abstract representation of sign language.",
-      "imageUrl": "https://images.unsplash.com/photo-1587599057827-9a4f4d2f3c4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzaWduJTIwbGFuZ3VhZ2V8ZW58MHx8fHwxNzU4ODMwNDUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://www.shutterstock.com/image-photo/female-hands-making-sign-heart-600nw-1514911964.jpg",
       "imageHint": "sign language"
     },
     {
@@ -33,7 +33,7 @@
     {
       "id": "dashboard-card-4",
       "description": "A neon sign that says 'Quiz Time'.",
-      "imageUrl": "https://images.unsplash.com/photo-1517411252338-7d2d77759413?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxxdWl6JTIwdGltZXxlbnwwfHx8fDE3NTg5MTk4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://static.vecteezy.com/system/resources/thumbnails/003/317/068/small_2x/quiz-time-logo-for-the-intellectual-game-vector.jpg",
       "imageHint": "quiz time"
     },
     {
