@@ -26,7 +26,7 @@ const RecognizeFacialExpressionGestureOutputSchema = z.object({
   action: z
     .string()
     .describe(
-      'The action to be performed based on the recognized facial expression or gesture, e.g., "happy", "stress", "fear", "stop".'
+      'The action to be performed based on the recognized facial expression or gesture. Possible values are "happy", "stress", "fear", or "stop".'
     ),
 });
 export type RecognizeFacialExpressionGestureOutput = z.infer<
@@ -43,17 +43,20 @@ const prompt = ai.definePrompt({
   name: 'recognizeFacialExpressionGesturePrompt',
   input: {schema: RecognizeFacialExpressionGestureInputSchema},
   output: {schema: RecognizeFacialExpressionGestureOutputSchema},
-  prompt: `You are an AI assistant that recognizes facial expressions and gestures from camera input and determines the appropriate action to perform.
+  prompt: `You are an AI assistant that recognizes facial expressions and gestures from camera input. Your task is to determine the user's emotional state and map it to a specific action.
 
-  Analyze the camera input and identify any facial expressions or gestures. Based on the recognized expression or gesture, determine the appropriate action to perform within the application. 
-  
-  Possible actions are: "happy", "stress", "fear", or "stop".
-  
-  For example, if the user smiles, the action is "happy". If they look stressed, the action is "stress". If they look scared, the action is "fear". If the user raises their hand, the action is "stop".
+Analyze the image from the camera and identify the user's primary facial expression or gesture. Based on what you see, choose one of the following actions:
 
-  Camera Input: {{media url=cameraDataUri}}
+- "happy": If the user is clearly smiling or laughing.
+- "stress": If the user appears stressed, worried, or anxious (e.g., furrowed brow, tense face).
+- "fear": If the user looks scared or frightened (e.g., wide eyes, open mouth).
+- "stop": If the user is holding up their hand in a "stop" gesture.
 
-  Respond with the action to be performed.
+If no clear emotion or gesture is detected, you can default to a neutral or non-actionable response, but for this task, please prioritize identifying one of the key actions.
+
+Camera Input: {{media url=cameraDataUri}}
+
+Respond with a single action word that best describes the detected emotion or gesture.
   `,
 });
 
