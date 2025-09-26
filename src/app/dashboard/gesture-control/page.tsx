@@ -10,18 +10,28 @@ import {
   Loader2,
   Music,
   Power,
-  Square,
   Play,
+  Smile,
+  Frown,
+  Meh,
 } from 'lucide-react';
 import { useRef, useState, useEffect, useCallback } from 'react';
+import YouTube from 'react-youtube';
+
+type Emotion = 'happy' | 'stress' | 'fear' | 'stop' | null;
 
 export default function GestureControlPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
-  const [action, setAction] = useState<string>('stop music');
+  const [emotion, setEmotion] = useState<Emotion>(null);
   const [isDetecting, setIsDetecting] = useState<boolean>(false);
   const { toast } = useToast();
+
+  const videoIds = {
+    stress: 'lwvMcvzEITI',
+    fear: 'nkkpE6xdcnU',
+  };
 
   const startCamera = async () => {
     try {
@@ -56,6 +66,7 @@ export default function GestureControlPage() {
       intervalRef.current = null;
     }
     setIsDetecting(false);
+    setEmotion(null);
   }, [stream]);
 
   const detectGesture = useCallback(async () => {
@@ -70,10 +81,14 @@ export default function GestureControlPage() {
 
     try {
       const result = await recognizeFacialExpressionGesture({ cameraDataUri });
-      if (result.action.toLowerCase().includes('play')) {
-        setAction('play music');
-      } else if (result.action.toLowerCase().includes('stop')) {
-        setAction('stop music');
+      const detectedAction = result.action.toLowerCase() as Emotion;
+      
+      if (['happy', 'stress', 'fear', 'stop'].includes(detectedAction)) {
+        if(detectedAction === 'stop') {
+          setEmotion(null);
+        } else {
+          setEmotion(detectedAction);
+        }
       }
     } catch (error) {
       console.error('Gesture detection error:', error);
@@ -89,7 +104,7 @@ export default function GestureControlPage() {
       setIsDetecting(false);
     } else {
       setIsDetecting(true);
-      intervalRef.current = setInterval(detectGesture, 3000); // Check every 3 seconds
+      intervalRef.current = setInterval(detectGesture, 5000); // Check every 5 seconds
     }
   };
 
@@ -99,7 +114,49 @@ export default function GestureControlPage() {
     };
   }, [stopCamera]);
 
-  const isMusicPlaying = action === 'play music';
+  const renderPlayerContent = () => {
+    switch (emotion) {
+      case 'happy':
+        return (
+          <div className="text-center">
+            <Smile className="mx-auto h-12 w-12 text-primary" />
+            <p className="mt-4 text-xl font-bold text-primary">
+              Stay motivated and study!
+            </p>
+          </div>
+        );
+      case 'stress':
+        return (
+          <YouTube
+            videoId={videoIds.stress}
+            opts={{ height: '100%', width: '100%', playerVars: { autoplay: 1 } }}
+            className="h-full w-full"
+          />
+        );
+      case 'fear':
+        return (
+          <YouTube
+            videoId={videoIds.fear}
+            opts={{ height: '100%', width: '100%', playerVars: { autoplay: 1 } }}
+            className="h-full w-full"
+          />
+        );
+      default:
+        return (
+          <div className="text-center">
+            <Music className="mx-auto h-12 w-12 text-muted-foreground" />
+            <p className="mt-4 text-xl font-bold text-muted-foreground">
+              Emotion not detected
+            </p>
+            <p className="text-sm text-muted-foreground">
+              {isDetecting
+                ? 'AI is watching for gestures...'
+                : 'Detection is off.'}
+            </p>
+          </div>
+        );
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -108,8 +165,8 @@ export default function GestureControlPage() {
           Gesture Control
         </h1>
         <p className="text-muted-foreground">
-          Control app functions with your expressions and gestures. Try smiling
-          or raising your hand!
+          Control app functions with your expressions and gestures. Try smiling,
+          looking stressed, or raising your hand!
         </p>
       </div>
 
@@ -163,34 +220,16 @@ export default function GestureControlPage() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2 font-headline">
-              <Music className="h-5 w-5" /> Mock Music Player
+              <Music className="h-5 w-5" /> Music Player
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div
               className={`flex h-full min-h-[200px] flex-col items-center justify-center rounded-md border-2 border-dashed p-6 text-center transition-colors ${
-                isMusicPlaying ? 'border-primary bg-primary/10' : 'bg-muted/50'
+                emotion ? 'border-primary bg-primary/10' : 'bg-muted/50'
               }`}
             >
-              <div className="flex h-24 w-24 items-center justify-center rounded-full bg-background shadow-inner">
-                {isMusicPlaying ? (
-                  <Play className="h-12 w-12 fill-primary text-primary" />
-                ) : (
-                  <Square className="h-12 w-12 text-muted-foreground" />
-                )}
-              </div>
-              <p
-                className={`mt-4 text-xl font-bold transition-colors ${
-                  isMusicPlaying ? 'text-primary' : 'text-muted-foreground'
-                }`}
-              >
-                {isMusicPlaying ? 'Music is Playing' : 'Music is Stopped'}
-              </p>
-              <p className="text-sm text-muted-foreground">
-                {isDetecting
-                  ? 'AI is watching for gestures...'
-                  : 'Detection is off.'}
-              </p>
+              {renderPlayerContent()}
             </div>
           </CardContent>
         </Card>

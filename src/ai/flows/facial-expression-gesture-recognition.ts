@@ -26,7 +26,7 @@ const RecognizeFacialExpressionGestureOutputSchema = z.object({
   action: z
     .string()
     .describe(
-      'The action to be performed based on the recognized facial expression or gesture, e.g., play music, stop music.'
+      'The action to be performed based on the recognized facial expression or gesture, e.g., "happy", "stress", "fear", "stop".'
     ),
 });
 export type RecognizeFacialExpressionGestureOutput = z.infer<
@@ -45,7 +45,11 @@ const prompt = ai.definePrompt({
   output: {schema: RecognizeFacialExpressionGestureOutputSchema},
   prompt: `You are an AI assistant that recognizes facial expressions and gestures from camera input and determines the appropriate action to perform.
 
-  Analyze the camera input and identify any facial expressions or gestures. Based on the recognized expression or gesture, determine the appropriate action to perform within the application. For example, if the user smiles, play music. If the user raises their hand, stop the music.
+  Analyze the camera input and identify any facial expressions or gestures. Based on the recognized expression or gesture, determine the appropriate action to perform within the application. 
+  
+  Possible actions are: "happy", "stress", "fear", or "stop".
+  
+  For example, if the user smiles, the action is "happy". If they look stressed, the action is "stress". If they look scared, the action is "fear". If the user raises their hand, the action is "stop".
 
   Camera Input: {{media url=cameraDataUri}}
 
@@ -64,4 +68,3 @@ const recognizeFacialExpressionGestureFlow = ai.defineFlow(
     return output!;
   }
 );
-
