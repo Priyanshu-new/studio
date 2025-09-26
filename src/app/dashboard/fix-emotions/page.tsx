@@ -63,7 +63,8 @@ export default function GestureControlPage() {
 
   const detectGesture = useCallback(async () => {
     if (!videoRef.current || !stream || videoRef.current.videoWidth === 0) return;
-
+    
+    setIsDetecting(true);
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
@@ -92,22 +93,30 @@ export default function GestureControlPage() {
           'Could not detect emotion. Please try again.',
         variant: 'destructive',
       });
+    } finally {
+        setIsDetecting(false);
     }
   }, [stream, toast]);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (stream && !isDetecting) {
-        setIsDetecting(true);
-        detectGesture().finally(() => setIsDetecting(false));
-      }
-    }, 5000); // Check every 5 seconds
+    if (stream) {
+      const intervalId = setInterval(() => {
+        if (!isDetecting) {
+          detectGesture();
+        }
+      }, 5000); // Check every 5 seconds
 
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [stream, isDetecting, detectGesture]);
+
+  useEffect(() => {
     return () => {
-      clearInterval(intervalId);
       stopCamera();
     };
-  }, [stream, isDetecting, detectGesture, stopCamera]);
+  }, [stopCamera]);
   
   const renderPlayerContent = () => {
     switch (emotion) {
