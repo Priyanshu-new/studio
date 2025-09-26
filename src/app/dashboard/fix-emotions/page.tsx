@@ -63,9 +63,9 @@ export default function FixEmotionsPage() {
   }, [stream]);
 
   const detectGesture = useCallback(async () => {
-    if (!videoRef.current || !stream || videoRef.current.videoWidth === 0 || isDetecting) return;
-    
+    if (!videoRef.current || !stream) return;
     setIsDetecting(true);
+
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
@@ -100,19 +100,7 @@ export default function FixEmotionsPage() {
     } finally {
         setIsDetecting(false);
     }
-  }, [stream, toast, isDetecting]);
-
-  useEffect(() => {
-    if (stream) {
-      const intervalId = setInterval(() => {
-          detectGesture();
-      }, 5000); 
-
-      return () => {
-        clearInterval(intervalId);
-      };
-    }
-  }, [stream, detectGesture]);
+  }, [stream, toast]);
 
   useEffect(() => {
     return () => {
@@ -150,12 +138,10 @@ export default function FixEmotionsPage() {
           <div className="text-center">
             <Music className="mx-auto h-12 w-12 text-muted-foreground" />
             <p className="mt-4 text-xl font-bold text-muted-foreground">
-              {isDetecting ? 'Detecting...' : 'Emotion not detected'}
+              Emotion not detected
             </p>
             <p className="text-sm text-muted-foreground">
-             {isDetecting
-                ? 'The AI is analyzing your expression...'
-                : 'Enable your camera to start emotion detection.'}
+             Click the detect button to check your emotion.
             </p>
           </div>
         );
@@ -197,7 +183,20 @@ export default function FixEmotionsPage() {
               )}
             </div>
             {stream && (
-              <div className="mt-4 flex justify-end">
+               <div className="mt-4 flex justify-between">
+                <Button onClick={detectGesture} disabled={!stream || isDetecting}>
+                  {isDetecting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Detecting...
+                    </>
+                  ) : (
+                    <>
+                      <Feather className="mr-2 h-4 w-4" />
+                      Detect Emotion
+                    </>
+                  )}
+                </Button>
                 <Button variant="outline" onClick={stopCamera}>
                   <Power className="mr-2 h-4 w-4" />
                   Stop Camera
