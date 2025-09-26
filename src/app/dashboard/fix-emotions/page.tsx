@@ -62,7 +62,7 @@ export default function GestureControlPage() {
   }, [stream]);
 
   const detectGesture = useCallback(async () => {
-    if (!videoRef.current || !stream) return;
+    if (!videoRef.current || !stream || videoRef.current.videoWidth === 0) return;
 
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
