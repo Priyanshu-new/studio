@@ -21,7 +21,7 @@ export type SummarizeLongContentInput = z.infer<typeof SummarizeLongContentInput
 const SummarizeLongContentOutputSchema = z.object({
   summary: z
     .string()
-    .describe('A summary of the key information in the long content.'),
+    .describe('A summary of the key information in the long content, formatted as bullet points.'),
   progress: z
     .string()
     .describe('A short, one-sentence summary of what has been generated.'),
@@ -38,7 +38,7 @@ const prompt = ai.definePrompt({
   name: 'summarizeLongContentPrompt',
   input: {schema: SummarizeLongContentInputSchema},
   output: {schema: SummarizeLongContentOutputSchema},
-  prompt: `Summarize the following content into shorter, more digestible chunks, so I can quickly grasp the key information. 
+  prompt: `Summarize the following content into key bullet points, so I can quickly grasp the key information.
 
 Content: {{{content}}}`,
 });

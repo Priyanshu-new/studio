@@ -89,9 +89,14 @@ export default function SummarizerPage() {
                 </div>
               ) : summary ? (
                 <div className="prose prose-sm max-w-none text-foreground">
-                  {summary.split('\n').map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
-                  ))}
+                  <ul className="list-disc space-y-2 pl-4">
+                    {summary
+                      .split(/[\n-]/)
+                      .filter((point) => point.trim())
+                      .map((point, index) => (
+                        <li key={index}>{point.trim()}</li>
+                      ))}
+                  </ul>
                 </div>
               ) : (
                 <div className="flex h-full items-center justify-center text-center">
