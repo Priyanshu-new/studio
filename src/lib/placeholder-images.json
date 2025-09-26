@@ -15,37 +15,37 @@
     {
       "id": "dashboard-card-1",
       "description": "An illustration of an AI robot assistant.",
-      "imageUrl": "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxBSSUyMGFzc2lzdGFudHxlbnwwfHx8fDE3NTg5MTAxNjF8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "AI assistant"
+      "imageUrl": "https://images.unsplash.com/photo-1555992336-03a23c03604a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxBSSUyMHJvYm90fGVufDB8fHx8MTc1ODkxODc1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "AI robot"
     },
     {
       "id": "dashboard-card-2",
       "description": "An abstract representation of sign language.",
-      "imageUrl": "https://images.unsplash.com/photo-1737567425973-bf7b6369d08a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxzaWduJTIwbGFuZ3VhZ2V8ZW58MHx8fHwxNzU4ODMwNDUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1587599057827-9a4f4d2f3c4c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzaWduJTIwbGFuZ3VhZ2V8ZW58MHx8fHwxNzU4ODMwNDUwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "sign language"
     },
     {
       "id": "dashboard-card-3",
       "description": "An icon representing gesture controls.",
-      "imageUrl": "https://images.unsplash.com/photo-1587483166702-bf9aa66bd791?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbW90aW9uJTIwaWNvbnN8ZW58MHx8fHwxNzU4OTE3NjMwfDA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1587483166702-bf9aa66bd791?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbW90aW9uJTIwaWNvbnN8ZW58MHx8fHwxNzU4OTE3NjMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "emotion icons"
     },
     {
       "id": "dashboard-card-4",
-      "description": "A collection of quiz questions on a screen.",
-      "imageUrl": "https://images.unsplash.com/photo-1567254790685-6b6d6abe4689?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxxdWl6JTIwcXVlc3Rpb25zfGVufDB8fHx8MTc1ODkxMDE2MXww&ixlib-rb-4.1.0&q=80&w=1080",
-      "imageHint": "quiz questions"
+      "description": "A neon sign that says 'Quiz Time'.",
+      "imageUrl": "https://images.unsplash.com/photo-1517411252338-7d2d77759413?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxxdWl6JTIwdGltZXxlbnwwfHx8fDE3NTg5MTk4ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "quiz time"
     },
     {
       "id": "dashboard-card-5",
       "description": "A book being summarized into key points.",
-      "imageUrl": "https://images.unsplash.com/photo-1715703344849-bc89c1af2856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1715703344849-bc89c1af2856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "book summary"
     },
     {
       "id": "dashboard-card-6",
       "description": "A user profile page with settings.",
-      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx1c2VyJTIwcHJvZmlsZXxlbnwwfHx8fDE3NTg4Mjg5MDl8MA&ixlib-rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx1c2VyJTIwcHJvZmlsZXxlbnwwfHx8fDE3NTg4Mjg5MDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "user profile"
     }
   ]
