@@ -27,25 +27,25 @@
     {
       "id": "dashboard-card-3",
       "description": "An icon representing gesture controls.",
-      "imageUrl": "https://images.unsplash.com/photo-1587483166702-bf9aa66bd791?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbW90aW9uJTIwaWNvbnN8ZW58MHx8fHwxNzU4OTE3NjMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1587483166702-bf9aa66bd791?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbW90aW9uJTIwaWNvbnN8ZW58MHx8fHwxNzU4OTE3NjMwfDA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "emotion icons"
     },
     {
       "id": "dashboard-card-4",
       "description": "A collection of quiz questions on a screen.",
-      "imageUrl": "https://images.unsplash.com/photo-1567254790685-6b6d6abe4689?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxxdWl6JTIwcXVlc3Rpb25zfGVufDB8fHx8MTc1ODkxMDE2MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1567254790685-6b6d6abe4689?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxxdWl6JTIwcXVlc3Rpb25zfGVufDB8fHx8MTc1ODkxMDE2MXww&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "quiz questions"
     },
     {
       "id": "dashboard-card-5",
       "description": "A book being summarized into key points.",
-      "imageUrl": "https://images.unsplash.com/photo-1715703344849-bc89c1af2856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1715703344849-bc89c1af2856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "book summary"
     },
     {
       "id": "dashboard-card-6",
       "description": "A user profile page with settings.",
-      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx1c2VyJTIwcHJvZmlsZXxlbnwwfHx8fDE3NTg4Mjg5MDl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx1c2VyJTIwcHJvZmlsZXxlbnwwfHx8fDE3NTg4Mjg5MDl8MA&ixlib-rb-4.1.0&q=80&w=1080",
       "imageHint": "user profile"
     }
   ]
