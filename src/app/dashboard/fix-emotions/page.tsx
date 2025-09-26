@@ -67,7 +67,7 @@ export default function FixEmotionsPage() {
   }, [toast]);
 
   const detectEmotion = useCallback(async () => {
-    if (!videoRef.current || !videoRef.current.srcObject || videoRef.current.readyState < 3) {
+    if (!videoRef.current || !videoRef.current.srcObject || videoRef.current.videoWidth === 0) {
       toast({
         title: 'Camera Not Ready',
         description: 'Please start the camera and wait for the feed to appear.',
@@ -82,16 +82,6 @@ export default function FixEmotionsPage() {
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
-
-    if (canvas.width === 0 || canvas.height === 0) {
-      toast({
-        title: 'Camera Error',
-        description: 'Could not capture video frame. Please ensure the camera is working correctly.',
-        variant: 'destructive',
-      });
-      setIsDetecting(false);
-      return;
-    }
 
     const ctx = canvas.getContext('2d');
     if (!ctx) {
@@ -117,6 +107,13 @@ export default function FixEmotionsPage() {
         } else {
           setEmotion(detectedAction);
         }
+      } else {
+        // Handle cases where the AI returns an unexpected action
+        setEmotion(null);
+        toast({
+          title: 'Detection Result',
+          description: `AI returned an unhandled action: ${result.action}`,
+        });
       }
     } catch (error) {
       console.error('Emotion detection error:', error);
