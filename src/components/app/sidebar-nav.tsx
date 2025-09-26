@@ -33,8 +33,8 @@ const links = [
     icon: <Hand />,
   },
   {
-    href: '/dashboard/gesture-control',
-    label: 'Gesture Control',
+    href: '/dashboard/fix-emotions',
+    label: 'Fix Emotions',
     icon: <Feather />,
   },
   {

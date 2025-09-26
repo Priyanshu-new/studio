@@ -33,9 +33,9 @@ const tools = [
     imageId: 'dashboard-card-2',
   },
   {
-    title: 'Gesture Control',
+    title: 'Fix Emotions',
     description: 'Use gestures to interact with the app.',
-    href: '/dashboard/gesture-control',
+    href: '/dashboard/fix-emotions',
     icon: <Feather className="h-6 w-6" />,
     imageId: 'dashboard-card-3',
   },
