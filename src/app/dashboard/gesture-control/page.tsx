@@ -63,6 +63,11 @@ export default function GestureControlPage() {
 
   const detectGesture = useCallback(async () => {
     if (!videoRef.current || !stream || isDetecting || videoRef.current.videoWidth === 0) {
+      toast({
+        title: 'Camera Not Ready',
+        description: 'Please wait for the camera feed to start before detecting.',
+        variant: 'destructive',
+      });
       return;
     }
     
@@ -105,7 +110,6 @@ export default function GestureControlPage() {
   }, [stream, toast, isDetecting]);
 
   useEffect(() => {
-    // Cleanup function to stop the camera when the component unmounts
     return () => {
       stopCamera();
     };
