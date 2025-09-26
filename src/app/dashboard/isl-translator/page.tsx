@@ -44,8 +44,15 @@ export default function ISLTranslatorPage() {
     }
   }, [stream]);
 
-  const captureAndTranslate = async () => {
-    if (!videoRef.current) return;
+  const captureAndTranslate = useCallback(async () => {
+    if (!videoRef.current || videoRef.current.videoWidth === 0) {
+       toast({
+        title: 'Camera Not Ready',
+        description: 'Please wait for the video feed to load before translating.',
+        variant: 'destructive',
+      });
+      return;
+    }
     setIsLoading(true);
     setTranslation('');
 
@@ -53,10 +60,14 @@ export default function ISLTranslatorPage() {
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
     const ctx = canvas.getContext('2d');
-    // Flip the canvas context horizontally
-    ctx?.translate(canvas.width, 0);
-    ctx?.scale(-1, 1);
-    ctx?.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
+    if (!ctx) {
+      setIsLoading(false);
+      return;
+    }
+    // Flip the canvas context horizontally to mirror the video feed
+    ctx.translate(canvas.width, 0);
+    ctx.scale(-1, 1);
+    ctx.drawImage(videoRef.current, 0, 0, canvas.width, canvas.height);
 
     const photoDataUri = canvas.toDataURL('image/jpeg');
 
@@ -73,7 +84,7 @@ export default function ISLTranslatorPage() {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [toast]);
 
   useEffect(() => {
     return () => {
