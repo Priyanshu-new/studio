@@ -101,7 +101,7 @@ export default function GestureControlPage() {
       setIsDetecting(false);
     } else {
       setIsDetecting(true);
-      intervalRef.current = setInterval(detectGesture, 5000); // Check every 5 seconds
+      intervalRef.current = setInterval(detectGesture, 10000); // Check every 10 seconds
     }
   };
 
