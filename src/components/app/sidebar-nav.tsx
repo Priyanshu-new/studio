@@ -54,7 +54,7 @@ export function SidebarNav() {
 
   return (
     <SidebarMenu>
-      {links.map((link) => (
+      {links.filter(l => l.href !== '/dashboard/gesture-control').map((link) => (
         <SidebarMenuItem key={link.href}>
           <SidebarMenuButton
             asChild
