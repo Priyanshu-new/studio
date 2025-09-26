@@ -2,7 +2,7 @@
 
 import { generateQuizzesFromTopic } from '@/ai/flows/generate-quizzes-from-topic';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import {
@@ -34,6 +34,7 @@ type Quiz = {
 
 export default function QuizGeneratorPage() {
   const [topic, setTopic] = useState('');
+  const [numQuestions, setNumQuestions] = useState(5);
   const [isLoading, setIsLoading] = useState(false);
   const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -52,7 +53,7 @@ export default function QuizGeneratorPage() {
     setShowResults(false);
 
     try {
-      const result = await generateQuizzesFromTopic({ topic, numQuestions: 5 });
+      const result = await generateQuizzesFromTopic({ topic, numQuestions });
       const parsedQuiz = JSON.parse(result.quiz);
       setQuiz(parsedQuiz);
     } catch (error) {
@@ -85,7 +86,7 @@ export default function QuizGeneratorPage() {
         <Loader2 className="h-12 w-12 animate-spin text-primary" />
         <h2 className="font-headline text-2xl">Generating Your Quiz...</h2>
         <p className="text-muted-foreground">
-          The AI is crafting some questions about &quot;{topic}&quot;.
+          The AI is crafting {numQuestions} questions about &quot;{topic}&quot;.
         </p>
       </div>
     );
@@ -214,27 +215,44 @@ export default function QuizGeneratorPage() {
         </p>
       </div>
       <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 font-headline">
-            <Lightbulb className="h-5 w-5" />
-            Create a Quiz
-          </CardTitle>
-        </CardHeader>
         <form onSubmit={handleGenerateQuiz}>
-          <CardContent>
-            <Label htmlFor="topic">Topic</Label>
-            <Input
-              id="topic"
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-              placeholder="e.g., The Solar System"
-            />
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 font-headline">
+              <Lightbulb className="h-5 w-5" />
+              Create a Quiz
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="topic">Topic</Label>
+              <Input
+                id="topic"
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                placeholder="e.g., The Solar System"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="num-questions">Number of Questions</Label>
+              <Input
+                id="num-questions"
+                type="number"
+                value={numQuestions}
+                onChange={(e) =>
+                  setNumQuestions(
+                    Math.max(1, Math.min(10, parseInt(e.target.value, 10) || 1))
+                  )
+                }
+                min="1"
+                max="10"
+              />
+            </div>
           </CardContent>
-          <CardContent>
+          <CardFooter>
             <Button type="submit" disabled={!topic || isLoading}>
               Generate Quiz
             </Button>
-          </CardContent>
+          </CardFooter>
         </form>
       </Card>
     </div>
