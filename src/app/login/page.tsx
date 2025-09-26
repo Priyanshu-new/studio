@@ -16,7 +16,7 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-muted/40">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <CardTitle className="font-headline text-2xl">Abily Learn</CardTitle>
+          <CardTitle className="font-headline text-2xl">ABLE 4 ALL</CardTitle>
           <CardDescription>
             Enter your email below to login to your account
           </CardDescription>

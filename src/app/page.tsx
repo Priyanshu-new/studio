@@ -56,7 +56,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen flex-col">
       <header className="container mx-auto px-4 py-6">
-        <h1 className="font-headline text-2xl font-bold">Abily Learn</h1>
+        <h1 className="font-headline text-2xl font-bold">ABLE 4 ALL</h1>
       </header>
 
       <main className="flex-1">
@@ -66,7 +66,7 @@ export default function Home() {
               Accessible Learning for Everyone.
             </h2>
             <p className="max-w-[600px] text-lg text-muted-foreground md:text-xl">
-              Abily Learn is an AI-powered platform designed to make education
+              ABLE 4 ALL is an AI-powered platform designed to make education
               inclusive. Explore a new way of learning, tailored to your unique
               needs.
             </p>
@@ -129,7 +129,7 @@ export default function Home() {
       <footer className="border-t">
         <div className="container mx-auto flex items-center justify-between px-4 py-6">
           <p className="text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} Abily Learn. All rights reserved.
+            &copy; {new Date().getFullYear()} ABLE 4 ALL. All rights reserved.
           </p>
           <nav className="flex gap-4">
             <Link

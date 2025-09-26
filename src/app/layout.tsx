@@ -4,7 +4,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { ThemeProvider } from '@/components/app/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'Abily Learn',
+  title: 'ABLE 4 ALL',
   description: 'Accessible learning for everyone, powered by AI.',
 };
 

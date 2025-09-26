@@ -13,7 +13,7 @@ export function Logo({ className }: { className?: string }) {
     >
       <BrainCircuit className="h-6 w-6 text-primary" />
       <h1 className="font-headline text-lg font-bold group-data-[collapsible=icon]:hidden">
-        Abily Learn
+        ABLE 4 ALL
       </h1>
     </Link>
   );
