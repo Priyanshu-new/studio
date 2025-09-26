@@ -141,7 +141,7 @@ export default function GestureControlPage() {
           <div className="text-center">
             <Music className="mx-auto h-12 w-12 text-muted-foreground" />
             <p className="mt-4 text-xl font-bold text-muted-foreground">
-              Emotion not detected
+              Gesture not detected
             </p>
             <p className="text-sm text-muted-foreground">
               Click the detect button to check your gesture.
