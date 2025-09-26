@@ -160,8 +160,7 @@ export default function GestureControlPage() {
           Fix Emotions
         </h1>
         <p className="text-muted-foreground">
-          Control app functions with your expressions and gestures. Try smiling,
-          looking stressed, or raising your hand!
+          if u are stressed then fix that first and then u are capable for studing other wise u cant clear that stuff
         </p>
       </div>
 
