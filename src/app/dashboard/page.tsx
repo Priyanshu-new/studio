@@ -71,44 +71,46 @@ export default function DashboardPage() {
         {tools.map((tool) => {
           const image = PlaceHolderImages.find((img) => img.id === tool.imageId);
           return (
-            <Card
+            <Link
               key={tool.title}
+              href={tool.href}
               className="group flex transform flex-col overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1"
             >
-              <CardHeader>
-                <div className="relative h-40 w-full overflow-hidden rounded-lg">
-                  {image && (
-                    <Image
-                      src={image.imageUrl}
-                      alt={image.description}
-                      fill
-                      className="object-cover"
-                      data-ai-hint={image.imageHint}
-                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                    />
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent className="flex flex-1 flex-col">
-                <div className="flex items-center gap-3">
-                  <div className="rounded-full bg-primary/10 p-2 text-primary">
-                    {tool.icon}
+              <Card className="flex h-full flex-col">
+                <CardHeader>
+                  <div className="relative h-40 w-full overflow-hidden rounded-lg">
+                    {image && (
+                      <Image
+                        src={image.imageUrl}
+                        alt={image.description}
+                        fill
+                        className="object-cover"
+                        data-ai-hint={image.imageHint}
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      />
+                    )}
                   </div>
+                </CardHeader>
+                <CardContent className="flex flex-1 flex-col justify-between">
                   <div>
-                    <CardTitle className="font-headline text-xl">
-                      {tool.title}
-                    </CardTitle>
-                    <CardDescription>{tool.description}</CardDescription>
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full bg-primary/10 p-2 text-primary">
+                        {tool.icon}
+                      </div>
+                      <div>
+                        <CardTitle className="font-headline text-xl">
+                          {tool.title}
+                        </CardTitle>
+                        <CardDescription>{tool.description}</CardDescription>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <Link
-                  href={tool.href}
-                  className="mt-4 flex items-center gap-2 text-sm font-semibold text-primary"
-                >
-                  Go to Tool <ArrowRight className="h-4 w-4" />
-                </Link>
-              </CardContent>
-            </Card>
+                  <div className="mt-4 flex items-center gap-2 text-sm font-semibold text-primary">
+                    Go to Tool <ArrowRight className="h-4 w-4" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           );
         })}
       </div>
