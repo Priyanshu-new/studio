@@ -19,7 +19,6 @@ type Emotion = 'happy' | 'stress' | 'fear' | 'stop' | null;
 
 export default function GestureControlPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [emotion, setEmotion] = useState<Emotion>(null);
   const [isDetecting, setIsDetecting] = useState<boolean>(false);
@@ -58,16 +57,13 @@ export default function GestureControlPage() {
         videoRef.current.srcObject = null;
       }
     }
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-      intervalRef.current = null;
-    }
     setIsDetecting(false);
     setEmotion(null);
   }, [stream]);
 
   const detectGesture = useCallback(async () => {
     if (!videoRef.current) return;
+    setIsDetecting(true);
 
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
@@ -89,21 +85,17 @@ export default function GestureControlPage() {
       }
     } catch (error) {
       console.error('Gesture detection error:', error);
-    }
-  }, []);
-
-  const toggleDetection = () => {
-    if (isDetecting) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
+       toast({
+        title: 'Detection Error',
+        description:
+          'Could not detect emotion. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
       setIsDetecting(false);
-    } else {
-      setIsDetecting(true);
-      intervalRef.current = setInterval(detectGesture, 10000); // Check every 10 seconds
     }
-  };
+  }, [toast]);
+
 
   useEffect(() => {
     return () => {
@@ -144,9 +136,7 @@ export default function GestureControlPage() {
               Emotion not detected
             </p>
             <p className="text-sm text-muted-foreground">
-              {isDetecting
-                ? 'AI is watching for gestures...'
-                : 'Detection is off.'}
+              Click the detect button to check your emotion.
             </p>
           </div>
         );
@@ -189,16 +179,16 @@ export default function GestureControlPage() {
             </div>
             {stream && (
               <div className="mt-4 flex justify-between">
-                <Button onClick={toggleDetection} disabled={!stream}>
+                <Button onClick={detectGesture} disabled={!stream || isDetecting}>
                   {isDetecting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Stop Detection
+                      Detecting...
                     </>
                   ) : (
                     <>
                       <Feather className="mr-2 h-4 w-4" />
-                      Start Detection
+                      Detect Emotion
                     </>
                   )}
                 </Button>
