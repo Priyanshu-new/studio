@@ -85,12 +85,12 @@ export default function FixEmotionsPage() {
 
     const ctx = canvas.getContext('2d');
     if (!ctx) {
-      setIsDetecting(false);
       toast({
         title: 'Canvas Error',
         description: 'Could not get canvas context for image capture.',
         variant: 'destructive',
       });
+      setIsDetecting(false);
       return;
     }
     
