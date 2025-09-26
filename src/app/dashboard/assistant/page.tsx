@@ -70,7 +70,7 @@ export default function AssistantPage() {
     <div className="flex h-[calc(100vh-8rem)] flex-col">
       <div className="mb-6">
         <h1 className="font-headline text-2xl font-bold md:text-3xl">
-          Abily AI Assistant
+          logic flow ai chatbot
         </h1>
         <p className="text-muted-foreground">
           Ask me anything! I can help you with your studies, explain concepts,

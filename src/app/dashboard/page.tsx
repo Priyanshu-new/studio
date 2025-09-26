@@ -19,8 +19,8 @@ import Link from 'next/link';
 
 const tools = [
   {
-    title: 'AI Assistant',
-    description: 'Chat with Abily AI for real-time help.',
+    title: 'Logic Flow Chatbot',
+    description: 'Chat with your AI for real-time help.',
     href: '/dashboard/assistant',
     icon: <Bot className="h-6 w-6" />,
     imageId: 'dashboard-card-1',

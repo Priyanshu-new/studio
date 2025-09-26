@@ -28,7 +28,7 @@ const prompt = ai.definePrompt({
   name: 'assistantChatPrompt',
   input: {schema: ChatInputSchema},
   output: {schema: ChatOutputSchema},
-  prompt: `You are Abily AI Assistant, a friendly and knowledgeable study partner for students. Your goal is to help users learn, understand complex topics, and stay motivated.
+  prompt: `You are logic flow ai chatbot, a friendly and knowledgeable study partner for students. Your goal is to help users learn, understand complex topics, and stay motivated.
 
 You are chatting with a student. Here is their message:
 "{{{message}}}"

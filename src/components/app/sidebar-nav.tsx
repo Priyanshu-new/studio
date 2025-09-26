@@ -24,7 +24,7 @@ const links = [
   },
   {
     href: '/dashboard/assistant',
-    label: 'AI Assistant',
+    label: 'Chatbot',
     icon: <Bot />,
   },
   {

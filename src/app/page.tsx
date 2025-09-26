@@ -15,7 +15,7 @@ import Link from 'next/link';
 const features = [
   {
     icon: <Bot className="h-8 w-8" />,
-    title: 'Abily AI Assistant',
+    title: 'logic flow ai chatbot',
     description:
       'Get real-time, multi-modal tutoring with voice, text, and visual input.',
   },
