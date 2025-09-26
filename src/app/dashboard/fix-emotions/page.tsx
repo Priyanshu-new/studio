@@ -85,6 +85,7 @@ export default function FixEmotionsPage() {
     }
     
     setIsDetecting(true);
+    setEmotion(null); // Reset emotion state
 
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
@@ -133,6 +134,20 @@ export default function FixEmotionsPage() {
   }, []);
   
   const renderPlayerContent = () => {
+    if (isDetecting) {
+      return (
+        <div className="flex flex-col items-center justify-center text-center">
+          <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          <p className="mt-4 text-xl font-bold text-primary">
+            Detecting Emotion...
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Please wait while the AI analyzes the camera feed.
+          </p>
+        </div>
+      );
+    }
+    
     switch (emotion) {
       case 'happy':
         return (
@@ -247,7 +262,7 @@ export default function FixEmotionsPage() {
           <CardContent>
             <div
               className={`flex h-full min-h-[200px] flex-col items-center justify-center rounded-md border-2 border-dashed p-6 text-center transition-colors ${
-                emotion ? 'border-primary bg-primary/10' : 'bg-muted/50'
+                emotion || isDetecting ? 'border-primary bg-primary/10' : 'bg-muted/50'
               }`}
             >
               {renderPlayerContent()}
