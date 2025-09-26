@@ -36,10 +36,10 @@ export default function FixEmotionsPage() {
     try {
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        setHasCameraPermission(true);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
-        setHasCameraPermission(true);
         return stream;
       }
       throw new Error('Media devices not supported');
@@ -57,10 +57,7 @@ export default function FixEmotionsPage() {
   }, [toast]);
 
   const startCamera = async () => {
-    const stream = await getCameraPermission();
-    if (stream && videoRef.current) {
-      videoRef.current.srcObject = stream;
-    }
+    await getCameraPermission();
   };
 
   const stopCamera = useCallback(() => {
@@ -124,14 +121,11 @@ export default function FixEmotionsPage() {
   }, [toast]);
 
   useEffect(() => {
+    // This effect is now only for cleanup
     return () => {
-      // Ensure camera is off when leaving the page.
-      if (videoRef.current && videoRef.current.srcObject) {
-        const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach((track) => track.stop());
-      }
+      stopCamera();
     };
-  }, []);
+  }, [stopCamera]);
   
   const renderPlayerContent = () => {
     if (isDetecting) {
