@@ -32,34 +32,6 @@ export default function FixEmotionsPage() {
     fear: 'nkkpE6xdcnU',
   };
 
-  const getCameraPermission = useCallback(async () => {
-    try {
-      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        setHasCameraPermission(true);
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-        }
-        return stream;
-      }
-      throw new Error('Media devices not supported');
-    } catch (error) {
-      console.error('Error accessing camera:', error);
-      setHasCameraPermission(false);
-      toast({
-        variant: 'destructive',
-        title: 'Camera Access Denied',
-        description:
-          'Please enable camera permissions in your browser settings.',
-      });
-      return null;
-    }
-  }, [toast]);
-
-  const startCamera = async () => {
-    await getCameraPermission();
-  };
-
   const stopCamera = useCallback(() => {
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
@@ -71,8 +43,31 @@ export default function FixEmotionsPage() {
     setEmotion(null);
   }, []);
 
+  const startCamera = useCallback(async () => {
+    try {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        setHasCameraPermission(true);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } else {
+        throw new Error('Media devices not supported');
+      }
+    } catch (error) {
+      console.error('Error accessing camera:', error);
+      setHasCameraPermission(false);
+      toast({
+        variant: 'destructive',
+        title: 'Camera Access Denied',
+        description:
+          'Please enable camera permissions in your browser settings.',
+      });
+    }
+  }, [toast]);
+
   const detectEmotion = useCallback(async () => {
-    if (!videoRef.current || !videoRef.current.srcObject || videoRef.current.videoWidth === 0) {
+    if (!videoRef.current || !videoRef.current.srcObject || videoRef.current.readyState < 3) {
       toast({
         title: 'Camera Not Ready',
         description: 'Please start the camera and wait for the feed to appear.',
@@ -82,14 +77,30 @@ export default function FixEmotionsPage() {
     }
     
     setIsDetecting(true);
-    setEmotion(null); // Reset emotion state
+    setEmotion(null);
 
     const canvas = document.createElement('canvas');
     canvas.width = videoRef.current.videoWidth;
     canvas.height = videoRef.current.videoHeight;
+
+    if (canvas.width === 0 || canvas.height === 0) {
+      toast({
+        title: 'Camera Error',
+        description: 'Could not capture video frame. Please ensure the camera is working correctly.',
+        variant: 'destructive',
+      });
+      setIsDetecting(false);
+      return;
+    }
+
     const ctx = canvas.getContext('2d');
     if (!ctx) {
       setIsDetecting(false);
+      toast({
+        title: 'Canvas Error',
+        description: 'Could not get canvas context for image capture.',
+        variant: 'destructive',
+      });
       return;
     }
     
@@ -112,21 +123,21 @@ export default function FixEmotionsPage() {
        toast({
         title: 'Detection Error',
         description:
-          'Could not detect emotion. Please try again.',
+          'Could not detect emotion. The AI may be busy or the image is unclear.',
         variant: 'destructive',
       });
     } finally {
         setIsDetecting(false);
     }
   }, [toast]);
-
+  
   useEffect(() => {
     // This effect is now only for cleanup
     return () => {
       stopCamera();
     };
   }, [stopCamera]);
-  
+
   const renderPlayerContent = () => {
     if (isDetecting) {
       return (
