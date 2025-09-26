@@ -1,3 +1,4 @@
+
 'use client';
 
 import { recognizeFacialExpressionGesture } from '@/ai/flows/facial-expression-gesture-recognition';
@@ -20,18 +21,17 @@ type Emotion = 'happy' | 'stress' | 'fear' | 'stop' | null;
 
 export default function FixEmotionsPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(
-    null
-  );
+  const [hasCameraPermission, setHasCameraPermission] = useState<boolean | null>(null);
   const [emotion, setEmotion] = useState<Emotion>(null);
   const [isDetecting, setIsDetecting] = useState<boolean>(false);
   const { toast } = useToast();
+  const [isCameraOn, setIsCameraOn] = useState(false);
 
   const videoIds = {
     stress: 'lwvMcvzEITI',
     fear: 'nkkpE6xdcnU',
   };
-
+  
   const stopCamera = useCallback(() => {
     if (videoRef.current && videoRef.current.srcObject) {
       const stream = videoRef.current.srcObject as MediaStream;
@@ -39,7 +39,7 @@ export default function FixEmotionsPage() {
       videoRef.current.srcObject = null;
     }
     setHasCameraPermission(null);
-    setIsDetecting(false);
+    setIsCameraOn(false);
     setEmotion(null);
   }, []);
 
@@ -48,6 +48,7 @@ export default function FixEmotionsPage() {
       if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         setHasCameraPermission(true);
+        setIsCameraOn(true);
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
         }
@@ -57,6 +58,7 @@ export default function FixEmotionsPage() {
     } catch (error) {
       console.error('Error accessing camera:', error);
       setHasCameraPermission(false);
+      setIsCameraOn(false);
       toast({
         variant: 'destructive',
         title: 'Camera Access Denied',
@@ -214,7 +216,7 @@ export default function FixEmotionsPage() {
                 muted
                 className="h-full w-full scale-x-[-1] object-cover"
               />
-              {hasCameraPermission === null && (
+              {!isCameraOn && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
                   <p className="text-sm text-muted-foreground">Camera off</p>
                   <Button onClick={startCamera}>Start Camera</Button>
@@ -229,7 +231,7 @@ export default function FixEmotionsPage() {
                   </AlertDescription>
                 </Alert>
              )}
-            {hasCameraPermission === true && (
+            {isCameraOn && (
                <div className="mt-4 flex justify-between">
                 <Button onClick={detectEmotion} disabled={isDetecting}>
                   {isDetecting ? (
@@ -273,3 +275,5 @@ export default function FixEmotionsPage() {
     </div>
   );
 }
+
+    
