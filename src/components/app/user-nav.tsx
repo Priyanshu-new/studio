@@ -11,10 +11,12 @@ import { Button } from '@/components/ui/button';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Link from 'next/link';
-import { LogOut, User } from 'lucide-react';
+import { LogOut, User, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 export function UserNav() {
   const avatarImage = PlaceHolderImages.find((img) => img.id === 'avatar-1');
+  const { setTheme, theme } = useTheme();
 
   return (
     <DropdownMenu>
@@ -48,6 +50,10 @@ export function UserNav() {
               <User />
               Profile
             </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
+            {theme === 'dark' ? <Sun /> : <Moon />}
+            <span>{theme === 'dark' ? 'Light Mode' : 'Dark Mode'}</span>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
