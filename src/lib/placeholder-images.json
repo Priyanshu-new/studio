@@ -3,7 +3,7 @@
     {
       "id": "hero-1",
       "description": "A diverse group of students learning together in a bright, modern classroom.",
-      "imageUrl": "https://images.unsplash.com/photo-1565598621680-94ac0c22b148?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc1ODg1MTEyOXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzdHVkZW50cyUyMGxlYXJuaW5nfGVufDB8fHx8MTc1ODg1MTEyOXww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "students learning"
     },
     {
@@ -27,19 +27,19 @@
     {
       "id": "dashboard-card-3",
       "description": "An icon representing gesture controls.",
-      "imageUrl": "https://images.unsplash.com/photo-1587483166702-bf9aa66bd791?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxlbW90aW9uJTIwaWNvbnN8ZW58MHx8fHwxNzU4OTE3NjMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1587483166702-bf9aa66bd791?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1080&q=80",
       "imageHint": "emotion icons"
     },
     {
       "id": "dashboard-card-4",
       "description": "A neon sign that says 'Quiz Time'.",
-      "imageUrl": "https://static.vecteezy.com/system/resources/thumbnails/003/317/068/small_2x/quiz-time-logo-for-the-intellectual-game-vector.jpg",
+      "imageUrl": "https://img.freepik.com/free-vector/vibrant-quiz-game-show-vector-illustration_1308-181014.jpg?semt=ais_hybrid&w=740&q=80",
       "imageHint": "quiz time"
     },
     {
       "id": "dashboard-card-5",
       "description": "A book being summarized into key points.",
-      "imageUrl": "https://images.unsplash.com/photo-1715703344849-bc89c1af2856?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxib29rJTIwc3VtbWFyeXxlbnwwfHx8fDE3NTg5MDY3OTl8MA&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "book summary"
     },
     {
